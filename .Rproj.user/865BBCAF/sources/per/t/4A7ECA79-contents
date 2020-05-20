@@ -1,7 +1,6 @@
 ---
 title: "Predicting Human Activity Classe from Wearable Devices"
 author: "Tarek Hassan"
-date: "5/20/2020"
 output: html_document
 ---
 This is a ML course project to predict human activity based on readings of wearable Devices's accelerometers.
@@ -65,6 +64,8 @@ If there were few NA's maybe we could use KNN, but with this number of NA's in t
 ```{r}
 clean_data = function(data)
 {
+  # First 5 columns are not important to train with 
+  data = data[, 6:ncol(data) ]
   nzv = nearZeroVar(data , saveMetrics = T)
   keepFeat = row.names(nzv[nzv$nzv == FALSE, ])
   data = data[, keepFeat]
@@ -80,7 +81,7 @@ training = clean_data(training)
 
 # Modeling
 Using cross validation and random forest
-```{r , cache=TRUE}
+```{r , cache= TRUE}
 #Saving trainControl() call with required parameters
 modCtl <- trainControl(method = 'cv', number = 5)
 
