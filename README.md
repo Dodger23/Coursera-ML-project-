@@ -21,4 +21,4 @@ The Quiz data are available here:
 
 
 
-To review the project please visit https://dodger23.github.io/Coursera-ML-project-/
+To review the project please visit https://dodger23.github.io/Practical-ML-course-project/
