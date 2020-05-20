@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1589928513488.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1359413602",
+    "id" : "4A7ECA79",
+    "lastKnownWriteTime" : 1589933654,
+    "last_content_update" : 1589933654281,
+    "path" : "/media/dodger/Local Disc/Data Science Course/coursera/Course 8/rmd.Rmd",
+    "project_path" : "rmd.Rmd",
+    "properties" : {
+        "cursorPosition" : "98,21",
+        "scrollLine" : "83",
+        "source_window_id" : "w9xuxjczlqk2v",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

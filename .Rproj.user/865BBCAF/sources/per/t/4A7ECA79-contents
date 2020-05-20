@@ -1,0 +1,112 @@
+---
+title: "Predicting Human Activity Classe from Wearable Devices"
+author: "Tarek Hassan"
+date: "5/20/2020"
+output: html_document
+---
+This is a ML course project to predict human activity based on readings of wearable Devices's accelerometers.
+
+# Goal
+The goal of this project to train a random forst ML algorithm on a training data and predict human activities from 5 classes (A = sitting-down, B = standing-up, C = standing, D = walking, E =  sitting ) on a Quiz data doesn't contain the classe variable 
+
+
+# Data 
+The data for this project come from this source: [ Human Activity Recognition](http://web.archive.org/web/20161224072740/http:/groupware.les.inf.puc-rio.br/har.) organization.
+
+This is a dataset with 5 classes (A = sitting-down, B = standing-up, C = standing, D = walking, E =  sitting ) collected on 8 hours of activities of 6 healthy subjects using wearable devices' accelerometers on the belt, forearm, arm, and dumbell.
+
+The training data for this project are available here:
+
+[training](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv)
+
+The Quiz data are available here:
+
+[Quiz](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv)
+
+
+# Required libraries
+
+```{r}
+library(caret)
+```
+
+
+# Reading the data 
+```{r }
+data = read.csv("data/pml-training.csv")
+```
+
+# Splitting the data into 75% raining and 25% testing 
+```{r}
+inTrain = createDataPartition(y= data$classe , p = 0.75 , list = FALSE)
+training = data[inTrain , ]
+testing = data[-inTrain , ]
+
+```
+
+
+# Exploring the training data
+```{r}
+explore = function(data)
+{
+  str(data)
+  find_na = apply(is.na(data),2,sum)
+  print(find_na)
+}
+
+explore(training)
+```
+Because the data contains a lot of variables we need to remove similar ones to reduce computation complexity.
+
+Also the data contains a lot of NA's, so we need to clean it.
+If there were few NA's maybe we could use KNN, but with this number of NA's in the columns it's better to remove it .
+
+# Cleaning the training data 
+```{r}
+clean_data = function(data)
+{
+  nzv = nearZeroVar(data , saveMetrics = T)
+  keepFeat = row.names(nzv[nzv$nzv == FALSE, ])
+  data = data[, keepFeat]
+  
+  data = data[, colSums(is.na(data)) == 0]
+  data 
+}
+
+training = clean_data(training)
+
+```
+
+
+# Modeling
+Using cross validation and random forest
+```{r , cache=TRUE}
+#Saving trainControl() call with required parameters
+modCtl <- trainControl(method = 'cv', number = 5)
+
+#Setting the seed to get the same results 
+set.seed(2384)
+#Training  using random forest
+modRf <- train(classe ~. , data = training, method = 'rf', trControl = modCtl)
+modRf$finalModel
+```
+
+
+# Predicting
+```{r}
+pred = predict(modRf , testing)
+
+#Showing the accuracy
+confusionMatrix(pred , testing$classe)
+confusionMatrix(pred , testing$classe)$overall[1]
+```
+
+
+# Qruiz 
+```{r}
+# Reading Quiz data for the first time
+Quiz = read.csv("data/pml-testing.csv")
+Qpred = predict(modRf , Quiz)
+Qpred
+```
+
