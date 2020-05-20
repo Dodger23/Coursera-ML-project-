@@ -3,7 +3,7 @@
 This is a ML course project to predict human activity based on readings of wearable Devices's accelerometers.
 
 ## Goal
-The goal of this project to train a random forst ML algorithm on a training data and predict human activities from 5 classes (A = sitting-down, B = standing-up, C = standing, D = walking, E =  sitting ) on a Quiz data doesn't contain the classe variable 
+The goal of this project to train a random forest ML algorithm on a training data and predict human activities from 5 classes (A = sitting-down, B = standing-up, C = standing, D = walking, E =  sitting ) on a Quiz data doesn't contain the classe variable 
 
 
 ## Data 
